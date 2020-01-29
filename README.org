@@ -1,0 +1,38 @@
+* Sistemas Operativos 2020-2 (Ayudantía)
+** Formato de evaluación
+*** Tareas
+Las tareas se dejarán como issues en el [[https://github.com/camachojua/SO-2020-2][repositorio]], además estarán
+presentes en la sección /tareas/ de cada uno de los archivos =.org=
+que se suben al mismo.
+
+*ANTES* de envíar la tarea se deben realizar los siguientes pasos:
+
+1. Crear una cuenta [[https://github.com][github]] si es que no tienen.
+2. Hacer un [[https://guides.github.com/activities/forking/][fork]] del repositorio.
+3. Crear un directorio llamado =No. de cuenta= con su número de cuenta
+   bajo la carpeta =tareas=.
+4. Crear un directorio llamado =#issue= (número de issue asignado)
+   dentro del directorio =No. de cuenta= que contendrá la solución a
+   su tarea.
+5. Resolver la tarea correspondiente (ver la sección de [[https://github.com/camachojua/SO-2020-2/issues][issues]] del
+   repositorio).
+6. Resolver la tarea.
+7. Hacer un [[https://guides.github.com/introduction/flow/][pull]] del repositorio original (=Upstream=) para que =HEAD=
+   apunte a =orign/master=.
+   1. Si hubo un cambio en el repositorio mientras resolvían su tarea
+      deben resolver los conflictos de su lado (su fork privado) y
+      como regla general upstream tiene preferencia sobre sus cambios.
+8. Realizar un [[https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests][pull-request]] indicando el issue que están resolviendo.
+9. Esperar calificación del ayudante.
+10. El ayudante hace el merge de su tarea.
+*** Participaciones
+Se tomará en cuenta la iniciativa personal y grupal al momento de
+asistir a la clase, recuerden que las participaciones pueden ser
+intercambiadas por un 20% de la calificación final.
+** Temario
+*** Introducción
+*** Modelo de ejecución de programas
+*** Arquitectura general de los Sistemas Operativos
+*** Modelos de control de acceso
+*** Administración de procesos
+*** Sistemas de archivos
