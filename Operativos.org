@@ -94,7 +94,13 @@ realidad el diseño (piensen en la carrera por implementar
 microprocesadores cuya longitud de transistor sea lo más [[https://www.techcenturion.com/7nm-10nm-14nm-fabrication][pequeña
 posible]]), como extra cabe mencionar que el desarrollo físico de los
 elementos de cómputo está íntimamente ligado a la [[eww:https://en.wikipedia.org/wiki/Microarchitecture][microarquitectura]],
-la cual define los requerimentos que debe cumplir el sistema físico.
+la cual define los requerimentos que debe cumplir el sistema
+físico. El diseño lógico consiste en crear una abstracción que permita
+desarrollar software que controle la parte física (controladores de
+dispositivos, implementación de protocolos de comunicación entre
+componentes físicos, etc.) de tal manera que cualquier usuario de un
+subsistema pueda comunicarse con él sin necesidad de conocer a fondo
+todo el hardware.
 
 Las distintas capas pueden comunicarse unas con otras a través de
 *interfaces*, cada una con distintos privilegios a los recursos que se
