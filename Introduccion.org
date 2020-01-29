@@ -136,6 +136,15 @@ complejas de manera más rápida para el consumidor de dichos servicios.
 
 [[file:abstraccion.png]]
 
+Para que un programa de aplicación ejecute todas sus instrucciones
+deben pasar muchas cosas: petición de memoria para guardar variables,
+interacción con el sistema de archivos, mensajes de red, mostrar
+información en pantalla. La única manera de interactuar con esos
+recursos es a través de la *tabla de llamadas al sistema* (la tabla de
+llamadas al sistema de linux puede ser encontrada [[https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/][aquí]]), las entradas
+son los servicios (un API) que el SO ofrece a los programas que se
+ejecutarán en el equipo.
+
 ** Tarea
 + Clonar este repositorio.
 + Mandar correo al ayudante con las siguientes características:
