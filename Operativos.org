@@ -9,17 +9,22 @@ que se suben al mismo.
 
 1. Crear una cuenta [[https://github.com][github]] si es que no tienen.
 2. Hacer un [[https://guides.github.com/activities/forking/][fork]] del repositorio.
-3. Resolver la tarea correspondiente (ver la sección de [[https://github.com/camachojua/SO-2020-2/issues][issues]] del
+3. Crear un directorio llamado =No. de cuenta= con su número de cuenta
+   bajo la carpeta =tareas=.
+4. Crear un directorio llamado =#issue= (número de issue asignado)
+   dentro del directorio =No. de cuenta= que contendrá la solución a
+   su tarea.
+5. Resolver la tarea correspondiente (ver la sección de [[https://github.com/camachojua/SO-2020-2/issues][issues]] del
    repositorio).
-4. Resolver la tarea.
-5. Hacer un [[https://guides.github.com/introduction/flow/][pull]] del repositorio original (=Upstream=) para que =HEAD=
+6. Resolver la tarea.
+7. Hacer un [[https://guides.github.com/introduction/flow/][pull]] del repositorio original (=Upstream=) para que =HEAD=
    apunte a =orign/master=.
    1. Si hubo un cambio en el repositorio mientras resolvían su tarea
       deben resolver los conflictos de su lado (su fork privado) y
       como regla general upstream tiene preferencia sobre sus cambios.
-6. Realizar un [[https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests][pull-request]] indicando el issue que están resolviendo.
-7. Esperar calificación del ayudante.
-8. El ayudante hace el merge de su tarea.
+8. Realizar un [[https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests][pull-request]] indicando el issue que están resolviendo.
+9. Esperar calificación del ayudante.
+10. El ayudante hace el merge de su tarea.
 
 Para enviar la tarea es necesario que hagan un [[https://guides.github.com/activities/forking/][fork]] al repositorio
 *antes* de tratar de resolver un issue. Después de hacer el fork hay
