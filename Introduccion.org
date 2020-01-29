@@ -145,6 +145,21 @@ llamadas al sistema de linux puede ser encontrada [[https://blog.rchapman.org/po
 son los servicios (un API) que el SO ofrece a los programas que se
 ejecutarán en el equipo.
 
+#+begin_src plantuml :file llamada.png
+    digraph llamada {
+      node [style=rounded]
+      usr [shape=box, label="Programa de usuario"]
+      so [shape=record, label="Controladores de dispositivo | <so> Sistema Operativo"]
+
+      usr -> so:so [label="Llamadas a sistema"]
+    }
+#+end_src
+
+#+RESULTS:
+[[file:llamada.png]]
+
+
+
 ** Tarea
 + Clonar este repositorio.
 + Mandar correo al ayudante con las siguientes características:
