@@ -1,0 +1,68 @@
+* Sistemas Operativos 2020-2 (Ayudantía)
+** Formato de evaluación
+** Temario
+** Primer clase
+*** Teoría
+**** ¿Dónde podemos encontrar una computadora?
+Los componentes de procesamiento digital se pueden encontrar en todos
+lados: relojes, sensores, actuadores, interfaces físicas de usuario,
+luces, etc. Debido al bajo coste de fabricación de los chips es más
+barato insertar una pequeña computadora que construir un dispositivo
+mecánico que realice un acción (el costo es tan bajo que cuesta más
+empaquetar un chip que crearlo).
+
+Como hay muchas computadoras procesando información dentro de las
+entidades físicas que construimos es necesario administrar ese
+procesamiento y la información que se obtiene a partir de dichas
+entidades de cómputo (es decir: tenemos muchos recursos de cómputo,
+mucha información que administrar y demasiados programas que se
+encuentran en ejecución) ¿Qué cosa puede salir mal?
+***** ¿Cómo se ejecutan los programas?
+Si me preguntaran en qué consiste un programa diría /formular acciones
+de una manera sistemática y clara que hasta una computadora puede
+hacerlo/, es un proceso que involucra dos pasos:
+
+1. Entender el universo.
+2. Explicárselo a un niño de tres años.
+
+El primer punto implica que debes conocer lo que deseas programar: no
+puedes escribir un shooter si no sabes física, la segunda tiene que
+ver con la poca información que una computadora posee del mundo
+exterior. Debido a esta falta de información se crearon un conjunto de
+abstracciones que nos permiten interactuar con el sistema dependiendo
+de nuestras necesidades.
+
+#+begin_src plantuml :file arquitectura.png
+  digraph overview {
+    node [style=rounded]
+    Physic [shape=box, label="Implementación física"]
+    Logic [shape=box, label="Diseño lógico"]
+    Hardware [shape=box, label="Hardware"]
+    SO [shape=box, label="Sistema Operativo"]
+    App [shape=box, label="Aplicaciones"]
+    User [shape=box, label="Usuarios"]
+
+    Physic -> Logic
+    Logic -> Hardware
+    Hardware -> SO
+    SO -> App
+    App -> User
+  }
+#+end_src
+
+[[file:arquitectura.png]]
+
+Las distintas capas pueden comunicarse unas con otras a través de
+*interfaces*, cada una con distintos privilegios a los recursos que se
+encuentran en las capas adyacentes. Desde luego, mientras más bajemos
+(de acuerdo a la figura anterior) mayor será la abstracción y muchos
+más servicios se tienen disponibles para realizar acciones más
+complejas de manera más rápida para el consumidor de dichos servicios.
+
+*** Tarea
++ Mandar correo al ayudante con las siguientes características:
+  + Asunto =[SO-2020-2]=.
+  + Nombre completo, número de cuenta y aspiraciones del curso.
+  + ¿Por qué el costo de empaquetado de un chip de procesamiento es
+    más alto que el de la creación del chip?
+*** Para la siguiente semana
