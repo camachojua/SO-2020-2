@@ -22,6 +22,8 @@ que se suben al mismo.
    1. Si hubo un cambio en el repositorio mientras resolvían su tarea
       deben resolver los conflictos de su lado (su fork privado) y
       como regla general upstream tiene preferencia sobre sus cambios.
+   2. Pueden realizar un [[https://gist.github.com/ravibhure/a7e0918ff4937c9ea1c456698dcd58aa][rebase]] a su rama master para que tengan en
+      cuenta todos los cambios que yo empujé al repositorio.
 8. Realizar un [[https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests][pull-request]] indicando el issue que están resolviendo.
 9. Esperar calificación del ayudante.
 10. El ayudante hace el merge de su tarea.
@@ -30,7 +32,7 @@ Se tomará en cuenta la iniciativa personal y grupal al momento de
 asistir a la clase, recuerden que las participaciones pueden ser
 intercambiadas por un 20% de la calificación final.
 ** Temario
-*** Introducción
+*** [[file:Introduccion.org][Introducción]]
 *** Modelo de ejecución de programas
 *** Arquitectura general de los Sistemas Operativos
 *** Modelos de control de acceso
