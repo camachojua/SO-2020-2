@@ -84,12 +84,57 @@ programa que siempre se encuentra en ejecución dentro de un sistema de
 cómputo*, no importa lo que pase, si hay que realizar una acción en un
 sistema de cómputo el SO siempre está involucrado.
 
+A modo de separación agregué dos capas extra: aplicaciones y usuarios,
+técnicamente esta es la última capa en el modelo de separación de
+responsabilidades que veremos, sin embargo pondré en aplicaciones
+aquellos programas que nos permiten administrar los recursos como
+archivos, sistemas de archivos, manejadores de desipositivos, entornos
+gráficos, etc. Estos se conocen comunmente como *utilerías del
+sistema*. En la segunda categoría caen programas como editores de
+texto, compiladores, enlazadores, debuggers, navegadores, juegos, etc.
+
 Las distintas capas pueden comunicarse unas con otras a través de
 *interfaces*, cada una con distintos privilegios a los recursos que se
 encuentran en las capas adyacentes. Desde luego, mientras más bajemos
 (de acuerdo a la figura anterior) mayor será la abstracción y muchos
 más servicios se tienen disponibles para realizar acciones más
 complejas de manera más rápida para el consumidor de dichos servicios.
+
+#+begin_src plantuml :file abstraccion.png
+  digraph abstraccion {
+    node [style=rounded]
+    dispositivos [shape=box,label="Dispositivos de hardware"]
+    so [shape=box,label="Sistema Operativo"]
+    util [shape=box, label="Utilerías de Sistema"]
+    hyper [shape=box, label="Hipervisores"]
+    navegador [shape=box, label="Navegador"]
+    editor [shape=box, label="Editor"]
+    web [shape=box, label="WebApp"]
+    vm [shape=box, label="Máquina Virtual"]
+
+    web -> navegador
+    navegador -> web
+
+    hyper -> so
+    so -> hyper
+    hyper -> vm
+    vm -> hyper
+
+    so -> util
+    util -> so
+
+    util -> navegador
+    navegador -> util
+
+    editor -> util
+    util -> editor
+
+    dispositivos -> so
+    so -> dispositivos
+  }
+#+end_src
+
+[[file:abstraccion.png]]
 
 ** Tarea
 + Clonar este repositorio.
