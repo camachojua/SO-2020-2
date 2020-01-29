@@ -91,7 +91,10 @@ La implementación física está limitada por la tecnología de la época
 en la que se manufacture el equipo de cómputo depende de los avances
 físicos e ingenieriles que se tengan disponibles para poder hacer
 realidad el diseño (piensen en la carrera por implementar
-microprocesadores cuya longitud de transistor sea lo más [[https://www.techcenturion.com/7nm-10nm-14nm-fabrication][pequeña posible]])
+microprocesadores cuya longitud de transistor sea lo más [[https://www.techcenturion.com/7nm-10nm-14nm-fabrication][pequeña
+posible]]), como extra cabe mencionar que el desarrollo físico de los
+elementos de cómputo está íntimamente ligado a la [[eww:https://en.wikipedia.org/wiki/Microarchitecture][microarquitectura]],
+la cual define los requerimentos que debe cumplir el sistema físico.
 
 Las distintas capas pueden comunicarse unas con otras a través de
 *interfaces*, cada una con distintos privilegios a los recursos que se
