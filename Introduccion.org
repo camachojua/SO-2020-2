@@ -57,13 +57,27 @@ microprocesadores cuya longitud de transistor sea lo más [[https://www.techcent
 posible]]), como extra cabe mencionar que el desarrollo físico de los
 elementos de cómputo está íntimamente ligado a la [[eww:https://en.wikipedia.org/wiki/Microarchitecture][microarquitectura]],
 la cual define los requerimentos que debe cumplir el sistema
-físico. El diseño lógico consiste en crear una abstracción que permita
+físico.
+
+El diseño lógico consiste en crear una abstracción que permita
 desarrollar software que controle la parte física (controladores de
 dispositivos, implementación de protocolos de comunicación entre
 componentes físicos, etc.) de tal manera que cualquier usuario de un
 subsistema pueda comunicarse con él sin necesidad de conocer a fondo
 todo el hardware, la culminación de esta abstacción se encuentra en
-sistemas como UEFI y BIOS.
+sistemas como UEFI y BIOS (que utiliza [[https://en.wikipedia.org/wiki/Microcode][microcódigo]] para cumplir este
+objetivo).
+
+El sistema operativo se encarga de abstraer un conjunto de
+arquitecturas de cómputo valiéndose de los elementos que el BIOS o el
+UEFI pone a su disposición, es el encargado de administrar el tiempo
+de cómputo que se le asigna a todos los trabajos que se encuentran e
+ejecución y de orquestar las peticiones que se hacen a los
+dispositivos de entrada y salida del sistema. Todos estos recursos se
+abstraen en una tabla de funciones conocida como *tabla de llamadas al
+sistema*, dicha tabla declara la funcionalidad que los usuarios
+finales (aplicaciones, equipos externos y humanos) podran utilizar
+para interactuar con el sistema de cómputo.
 
 Las distintas capas pueden comunicarse unas con otras a través de
 *interfaces*, cada una con distintos privilegios a los recursos que se
