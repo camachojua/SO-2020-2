@@ -100,7 +100,8 @@ desarrollar software que controle la parte física (controladores de
 dispositivos, implementación de protocolos de comunicación entre
 componentes físicos, etc.) de tal manera que cualquier usuario de un
 subsistema pueda comunicarse con él sin necesidad de conocer a fondo
-todo el hardware.
+todo el hardware, la culminación de esta abstacción se encuentra en
+sistemas como UEFI y BIOS.
 
 Las distintas capas pueden comunicarse unas con otras a través de
 *interfaces*, cada una con distintos privilegios a los recursos que se
