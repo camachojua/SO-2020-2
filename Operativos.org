@@ -87,6 +87,12 @@ de nuestras necesidades.
 
 [[file:arquitectura.png]]
 
+La implementación física está limitada por la tecnología de la época
+en la que se manufacture el equipo de cómputo depende de los avances
+físicos e ingenieriles que se tengan disponibles para poder hacer
+realidad el diseño (piensen en la carrera por implementar
+microprocesadores cuya longitud de transistor sea lo más [[https://www.techcenturion.com/7nm-10nm-14nm-fabrication][pequeña posible]])
+
 Las distintas capas pueden comunicarse unas con otras a través de
 *interfaces*, cada una con distintos privilegios a los recursos que se
 encuentran en las capas adyacentes. Desde luego, mientras más bajemos
