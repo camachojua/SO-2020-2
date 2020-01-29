@@ -25,11 +25,17 @@ que se suben al mismo.
 8. Realizar un [[https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests][pull-request]] indicando el issue que están resolviendo.
 9. Esperar calificación del ayudante.
 10. El ayudante hace el merge de su tarea.
-
-Para enviar la tarea es necesario que hagan un [[https://guides.github.com/activities/forking/][fork]] al repositorio
-*antes* de tratar de resolver un issue. Después de hacer el fork hay
-que resolver la tarea,
+*** Participaciones
+Se tomará en cuenta la iniciativa personal y grupal al momento de
+asistir a la clase, recuerden que las participaciones pueden ser
+intercambiadas por un 20% de la calificación final.
 ** Temario
+*** Introducción
+*** Modelo de ejecución de programas
+*** Arquitectura general de los Sistemas Operativos
+*** Modelos de control de acceso
+*** Administración de procesos
+*** Sistemas de archivos
 ** Primer clase
 *** Teoría
 **** ¿Dónde podemos encontrar una computadora?
