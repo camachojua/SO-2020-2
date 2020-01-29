@@ -158,7 +158,38 @@ ejecutarán en el equipo.
 #+RESULTS:
 [[file:llamada.png]]
 
+En este mundo moderno los microprocesadores ejecutan más de un
+programa al mismo tiempo, esto implica que podemos tener más programas
+en ejecución que número de procesadores disponibles, para que todos
+los programas se ejecuten y lleguen al término de su ejecución es
+necesario parar la ejecución de unos programas mientras que reanudamos
+la ejecución de otros, esto se llama *cambio de contexto*:
 
+#+begin_src plantuml :file contexto.png
+    "Programa de usuario" --> "Sistema Operativo"
+    "Sistema Operativo" --> if "Se puede atender la petición" then
+
+      -->[true] "Despachar petición"
+
+    else
+
+      -->[false] "Dormir programa"
+      --> "Encotrar un programa listo para ejecutarse"
+      --> "Despertar programa"
+      --> "Despachar petición"
+
+    endif
+
+  --> "Restaurar contexto"
+
+  --> "Sistema Operativo"
+
+  --> "Programa de usuario"
+
+#+end_src
+
+#+RESULTS:
+[[file:contexto.png]]
 
 ** Tarea
 + Clonar este repositorio.
