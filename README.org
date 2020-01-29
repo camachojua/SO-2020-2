@@ -30,7 +30,7 @@ Se tomará en cuenta la iniciativa personal y grupal al momento de
 asistir a la clase, recuerden que las participaciones pueden ser
 intercambiadas por un 20% de la calificación final.
 ** Temario
-*** Introducción
+*** [[file:Introduccion.org][Introducción]]
 *** Modelo de ejecución de programas
 *** Arquitectura general de los Sistemas Operativos
 *** Modelos de control de acceso
