@@ -68,7 +68,7 @@ todo el hardware, la culminación de esta abstacción se encuentra en
 sistemas como UEFI y BIOS (que utiliza [[https://en.wikipedia.org/wiki/Microcode][microcódigo]] para cumplir este
 objetivo).
 
-El sistema operativo se encarga de abstraer un conjunto de
+El sistema operativo (SO) se encarga de abstraer un conjunto de
 arquitecturas de cómputo valiéndose de los elementos que el BIOS o el
 UEFI pone a su disposición, es el encargado de administrar el tiempo
 de cómputo que se le asigna a todos los trabajos que se encuentran e
@@ -77,7 +77,12 @@ dispositivos de entrada y salida del sistema. Todos estos recursos se
 abstraen en una tabla de funciones conocida como *tabla de llamadas al
 sistema*, dicha tabla declara la funcionalidad que los usuarios
 finales (aplicaciones, equipos externos y humanos) podran utilizar
-para interactuar con el sistema de cómputo.
+para interactuar con el sistema de cómputo. Una característica
+particular que los sistemas operativos tienen es que *siempre se
+encuentran en ejecución* de hecho *el sistema opreativo es el único
+programa que siempre se encuentra en ejecución dentro de un sistema de
+cómputo*, no importa lo que pase, si hay que realizar una acción en un
+sistema de cómputo el SO siempre está involucrado.
 
 Las distintas capas pueden comunicarse unas con otras a través de
 *interfaces*, cada una con distintos privilegios a los recursos que se
