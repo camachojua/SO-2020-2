@@ -1,0 +1,8 @@
+Daniel Lugo Cano
+
+315320015
+Lo que espero del curso es aprender conocimientos completamente de computación, más que eso también aprender de la experiencia tanto de los ayudantes y del profesor, además de poder usar de manera más fluida y con más seguridad GitHub, ya que esta es mi primer experiencia usandolo de manera colaborativa.
+
+¿Por qué el costo de empaquetado de un chip de procesamiento es más alto que el de la creación del chip?
+
+Esto sucede porque los materiales que se requieren para su creación son hasta cierto punto baratos para esa industria, todo depende del vendedor y el comprador, lo que eleva demasiado el precio es que el comprador de los chips los necesitan con un cierto tamaño y ciertas características para que puedan ser compatibles con sus equipos, después de hacerlo a las medidas requeridas tienen que ser probados para hacerlo a prueba de errores y verificar que realmente hace lo que debe hacer, todo este proceso resulta costoso pues se emplea mucha gente para lograrlo.
