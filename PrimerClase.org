@@ -1,0 +1,201 @@
+* Primer clase
+** Teoría
+*** ¿Dónde podemos encontrar una computadora?
+Los componentes de procesamiento digital se pueden encontrar en todos
+lados: relojes, sensores, actuadores, interfaces físicas de usuario,
+luces, etc. Debido al bajo coste de fabricación de los chips es más
+barato insertar una pequeña computadora que construir un dispositivo
+mecánico que realice un acción (el costo es tan bajo que cuesta más
+empaquetar un chip que crearlo).
+
+Como hay muchas computadoras procesando información dentro de las
+entidades físicas que construimos es necesario administrar ese
+procesamiento y la información que se obtiene a partir de dichas
+entidades de cómputo (es decir: tenemos muchos recursos de cómputo,
+mucha información que administrar y demasiados programas que se
+encuentran en ejecución) ¿Qué cosa puede salir mal?
+**** ¿Cómo se ejecutan los programas?
+Si me preguntaran en qué consiste un programa diría /formular acciones
+de una manera sistemática y clara que hasta una computadora puede
+hacerlo/, es un proceso que involucra dos pasos:
+
+1. Entender el universo.
+2. Explicárselo a un niño de tres años.
+
+El primer punto implica que debes conocer lo que deseas programar: no
+puedes escribir un shooter si no sabes física, la segunda tiene que
+ver con la poca información que una computadora posee del mundo
+exterior. Debido a esta falta de información se crearon un conjunto de
+abstracciones que nos permiten interactuar con el sistema dependiendo
+de nuestras necesidades.
+
+#+begin_src plantuml :file arquitectura.png
+  digraph overview {
+    node [style=rounded]
+    Physic [shape=box, label="Implementación física"]
+    Logic [shape=box, label="Diseño lógico"]
+    Hardware [shape=box, label="Hardware"]
+    SO [shape=box, label="Sistema Operativo"]
+    App [shape=box, label="Aplicaciones"]
+    User [shape=box, label="Usuarios"]
+
+    Physic -> Logic
+    Logic -> Hardware
+    Hardware -> SO
+    SO -> App
+    App -> User
+  }
+#+end_src
+
+[[file:arquitectura.png]]
+
+La implementación física está limitada por la tecnología de la época
+en la que se manufacture el equipo de cómputo depende de los avances
+físicos e ingenieriles que se tengan disponibles para poder hacer
+realidad el diseño (piensen en la carrera por implementar
+microprocesadores cuya longitud de transistor sea lo más [[https://www.techcenturion.com/7nm-10nm-14nm-fabrication][pequeña
+posible]]), como extra cabe mencionar que el desarrollo físico de los
+elementos de cómputo está íntimamente ligado a la [[eww:https://en.wikipedia.org/wiki/Microarchitecture][microarquitectura]],
+la cual define los requerimentos que debe cumplir el sistema
+físico.
+
+El diseño lógico consiste en crear una abstracción que permita
+desarrollar software que controle la parte física (controladores de
+dispositivos, implementación de protocolos de comunicación entre
+componentes físicos, etc.) de tal manera que cualquier usuario de un
+subsistema pueda comunicarse con él sin necesidad de conocer a fondo
+todo el hardware, la culminación de esta abstacción se encuentra en
+sistemas como UEFI y BIOS (que utiliza [[https://en.wikipedia.org/wiki/Microcode][microcódigo]] para cumplir este
+objetivo).
+
+El sistema operativo (SO) se encarga de abstraer un conjunto de
+arquitecturas de cómputo valiéndose de los elementos que el BIOS o el
+UEFI pone a su disposición, es el encargado de administrar el tiempo
+de cómputo que se le asigna a todos los trabajos que se encuentran e
+ejecución y de orquestar las peticiones que se hacen a los
+dispositivos de entrada y salida del sistema. Todos estos recursos se
+abstraen en una tabla de funciones conocida como *tabla de llamadas al
+sistema*, dicha tabla declara la funcionalidad que los usuarios
+finales (aplicaciones, equipos externos y humanos) podran utilizar
+para interactuar con el sistema de cómputo. Una característica
+particular que los sistemas operativos tienen es que *siempre se
+encuentran en ejecución* de hecho *el sistema opreativo es el único
+programa que siempre se encuentra en ejecución dentro de un sistema de
+cómputo*, no importa lo que pase, si hay que realizar una acción en un
+sistema de cómputo el SO siempre está involucrado.
+
+A modo de separación agregué dos capas extra: aplicaciones y usuarios,
+técnicamente esta es la última capa en el modelo de separación de
+responsabilidades que veremos, sin embargo pondré en aplicaciones
+aquellos programas que nos permiten administrar los recursos como
+archivos, sistemas de archivos, manejadores de desipositivos, entornos
+gráficos, etc. Estos se conocen comunmente como *utilerías del
+sistema*. En la segunda categoría caen programas como editores de
+texto, compiladores, enlazadores, debuggers, navegadores, juegos, etc.
+
+Las distintas capas pueden comunicarse unas con otras a través de
+*interfaces*, cada una con distintos privilegios a los recursos que se
+encuentran en las capas adyacentes. Desde luego, mientras más bajemos
+(de acuerdo a la figura anterior) mayor será la abstracción y muchos
+más servicios se tienen disponibles para realizar acciones más
+complejas de manera más rápida para el consumidor de dichos servicios.
+
+#+begin_src plantuml :file abstraccion.png
+  digraph abstraccion {
+    node [style=rounded]
+    dispositivos [shape=box,label="Dispositivos de hardware"]
+    so [shape=box,label="Sistema Operativo"]
+    util [shape=box, label="Utilerías de Sistema"]
+    hyper [shape=box, label="Hipervisores"]
+    navegador [shape=box, label="Navegador"]
+    editor [shape=box, label="Editor"]
+    web [shape=box, label="WebApp"]
+    vm [shape=box, label="Máquina Virtual"]
+
+    web -> navegador
+    navegador -> web
+
+    hyper -> so
+    so -> hyper
+    hyper -> vm
+    vm -> hyper
+
+    so -> util
+    util -> so
+
+    util -> navegador
+    navegador -> util
+
+    editor -> util
+    util -> editor
+
+    dispositivos -> so
+    so -> dispositivos
+  }
+#+end_src
+
+[[file:abstraccion.png]]
+
+Para que un programa de aplicación ejecute todas sus instrucciones
+deben pasar muchas cosas: petición de memoria para guardar variables,
+interacción con el sistema de archivos, mensajes de red, mostrar
+información en pantalla. La única manera de interactuar con esos
+recursos es a través de la *tabla de llamadas al sistema* (la tabla de
+llamadas al sistema de linux puede ser encontrada [[https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/][aquí]]), las entradas
+son los servicios (un API) que el SO ofrece a los programas que se
+ejecutarán en el equipo.
+
+#+begin_src plantuml :file llamada.png
+    digraph llamada {
+      node [style=rounded]
+      usr [shape=box, label="Programa de usuario"]
+      so [shape=record, label="Controladores de dispositivo | <so> Sistema Operativo"]
+
+      usr -> so:so [label="Llamadas a sistema"]
+    }
+#+end_src
+
+#+RESULTS:
+[[file:llamada.png]]
+
+En este mundo moderno los microprocesadores ejecutan más de un
+programa al mismo tiempo, esto implica que podemos tener más programas
+en ejecución que número de procesadores disponibles, para que todos
+los programas se ejecuten y lleguen al término de su ejecución es
+necesario parar la ejecución de unos programas mientras que reanudamos
+la ejecución de otros, esto se llama *cambio de contexto*:
+
+#+begin_src plantuml :file contexto.png
+    "Programa de usuario" --> "Sistema Operativo"
+    "Sistema Operativo" --> if "Se puede atender la petición" then
+
+      -->[true] "Despachar petición"
+
+    else
+
+      -->[false] "Dormir programa"
+      --> "Encotrar un programa listo para ejecutarse"
+      --> "Despertar programa"
+      --> "Despachar petición"
+
+    endif
+
+  --> "Restaurar contexto"
+
+  --> "Sistema Operativo"
+
+  --> "Programa de usuario"
+
+#+end_src
+
+#+RESULTS:
+[[file:contexto.png]]
+
+** Tarea
++ Clonar este repositorio.
++ Mandar correo al ayudante con las siguientes características:
+  + Asunto =[SO-2020-2]=.
+  + Nombre completo, número de cuenta y aspiraciones del curso.
+  + ¿Por qué el costo de empaquetado de un chip de procesamiento es
+    más alto que el de la creación del chip?
+** Para la siguiente semana
