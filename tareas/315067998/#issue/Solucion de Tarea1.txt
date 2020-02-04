@@ -1,1 +1,3 @@
+Solución:
+
 Dado que el el costo de fabricar los chips es muy bajo, es más barato insertar una pequeña computadora que construir un dispositivo mecánico que realice la acción.
