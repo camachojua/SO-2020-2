@@ -155,7 +155,6 @@ ejecutarán en el equipo.
     }
 #+end_src
 
-#+RESULTS:
 [[file:llamada.png]]
 
 En este mundo moderno los microprocesadores ejecutan más de un
@@ -188,7 +187,6 @@ la ejecución de otros, esto se llama *cambio de contexto*:
 
 #+end_src
 
-#+RESULTS:
 [[file:contexto.png]]
 
 ** Tarea
