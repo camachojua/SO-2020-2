@@ -1,0 +1,15 @@
+Jesus Haans Lopez Hernandez
+
+Numero de cuenta: 311245488
+
+Mis aspiraciones del curso:
+	Para este curso espero tener un buen conocimiento sobre la estructura de un sistema operativo y si es 
+	posible ver demas relacionados al DevOps pero solo si el tiempo nos deja.
+
+
+¿Por qué el costo de empaquetado de un chip de procesamiento es más alto que el de la creación del chip?
+	por que al poder la tecnologia permitirnos hacer transistores mas pequeños en el tamaño de la oblea de 
+	silicio llegan a caber mas entonces al ser mas se divide el precio y eso ya contando las perdidas, en 
+	cambio en el empaquetado pues siento que al ser todo muy relacionado al "Gaming" tienen que hacer 
+	empaques exoticos y esto afecta directamente en el beneficio de trasporte, embalaje, etc que influyen 
+	al costo del empaquetado. Ademas el marketing que hacen ayuda a aumentar el precio. 
