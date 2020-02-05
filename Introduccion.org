@@ -189,6 +189,31 @@ la ejecución de otros, esto se llama *cambio de contexto*:
 
 [[file:contexto.png]]
 
+El mecanismo físico dentro del cpu que hace posible la ejecución
+simultánea de tareas es llamado _unidad de intrerrupcíon_ y su trabajo
+es escuchar las peticiones de otros dispositivos (incluido el cpu
+mismo). La forma de trabajo es la siguiente: un dispositivo necesita
+atención y para obtenerla hace lo que todo niño de tres años haría,
+esto es, llorar. Dentro de este contexto la petición se le conoce como
+*petición de interrupción*, esta petición tiene un efecto secundario:
+forza al cpu para terminar la ejecución de lo que esté computando en
+ese momento, realiza un cambio de contexto y reanuda la ejecución de
+un programa especial llamado *manejador de interrupciones* (/interrupt
+handler/).  Este manejador de interrupciones es el encargado de
+averiguar quién, dónde, cómo y por qué se creó la petición, hace todos
+los arreglos posibles para que dicha petición sea cumplida en el
+futuro, avisa al programa/dispositivo que generó la interrupción que
+su petición ha sido atendida y realiza un cambio de contexto para que
+otro programa sea ejecutado en la cpu ¿Qué pasaría si no existiera un
+manejador de interrupciones?
+
+Para poder realizar un cambio de contexto es necesario guardar el
+_estado actual_ de ejecución en algún lado (recuerden su clase de
+arquitectura de computadoras), las computadoras electrónicas digitales
+utilizan un tipo de memoria llamado *pila del sistema*, el manejador
+de interrupciones utiliza la pila para guardar toda la información que
+necesite posteriormente.
+
 ** Tarea
 + Clonar este repositorio.
 + Mandar correo al ayudante con las siguientes características:
@@ -196,4 +221,9 @@ la ejecución de otros, esto se llama *cambio de contexto*:
   + Nombre completo, número de cuenta y aspiraciones del curso.
   + ¿Por qué el costo de empaquetado de un chip de procesamiento es
     más alto que el de la creación del chip?
++ Crear un archivo llamado =tareas_introduccion.org= que responda lo
+  siguiente:
+  + ¿Por qué es necesario que exista un manejador de interrupciones?
+    ¿Qué es lo que podría pasar si no existiera?
+  +
 ** Para la siguiente semana
