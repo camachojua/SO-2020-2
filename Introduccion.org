@@ -359,7 +359,6 @@ la suma a la dirección de la variable/función que se desea obtener:
   }
 #+end_src
 
-#+RESULTS:
 [[file:registro_indice.png]]
 
 Este *modelo de direccionamiento* se llama /direccionamiento
