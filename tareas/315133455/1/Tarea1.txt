@@ -1,0 +1,7 @@
+Clonar este repositorio.
+Mandar correo al ayudante con las siguientes características:
+Asunto [SO-2020-2].
+Nombre completo, número de cuenta y aspiraciones del curso.
+Ramón Arenas Ayala | 315133455 | Obtener conocimientos sobre computación en general y además otros los cuales me permitan entender como funciona un SO
+¿Por qué el costo de empaquetado de un chip de procesamiento es más alto que el de la creación del chip?
+No es tan caro crearlo ya que los materiales que se ocupan no son extaños y en general ya se tienen todo lo necesario para poder hacerlos. 
