@@ -245,6 +245,37 @@ hablar con el hardware de manera "transparente".
 
 [[file:interrupcion.png]]
 
+Las interrupciones originadas desde un dispositivo físico se conocen
+como *interrupciones de hardware*, mientras que las lanzadas por el
+sistema operativo como parte de una solicitud de un programa de
+usuario son conocidas como *interrupciones de sistema/software*. Las
+interrupciones de hardware están limitadas al número y características
+de los dispositivos que conforman la computadora. Un ejemplo de
+interrupción de hardware es la división entre cero y un ejemplo de
+interrupción de software es la creación de un archivo.
+
+Pero ¿qué es una interrupción? Podemos definirla como:
+
+#+begin_quote
+Una *interrupción* es una señal de entrada enviada al procesador la
+cual indica que surgió un evento que requiere procesamiento inmediato.
+
+Una señal de interrupción aletra al procesador y sirve como una
+petición para interrumpir la ejecución del programa que se encuentra
+actualmente dentro del cpu.
+#+end_quote
+
+Dada la basta cantidad de interrupciones que se pueden generar se ha
+implementado una jerarquía o *prioritización* de las interrupciones:
+las de hardware tienen preferencia sobre cualquier interrupción de
+software, esto implica que una interrupción de baja prioridad /puede
+ser interrumpida/ por otra de prioridad mayor. Para tener control
+sobre el tiempo de ejecución se implementan /contadores/ (timers),
+semáforos y candados. Debido a la inherente complejidad introducida
+por estructuras de datos mutables y andar observando el estado de
+ejecución la mayoría de los SO's implementa una capa de abstracción
+sobre las interrupciones llamada *llamadas al sistema/señales*.
+
 ** Tarea
 + Clonar este repositorio.
 + Mandar correo al ayudante con las siguientes características:
@@ -256,5 +287,9 @@ hablar con el hardware de manera "transparente".
   siguiente:
   + ¿Por qué es necesario que exista un manejador de interrupciones?
     ¿Qué es lo que podría pasar si no existiera?
-  +
+  + Medita un poco y piensa ¿Qué otras interrupciones de hardware
+    supones que existen en la arquitectura =x86_64=?
+  + Tomando como referencia tu día a día como computólogo frente a una
+    computadora electrónica digital ¿Qué interrupciones de software
+    utilizas a menudo?
 ** Para la siguiente semana
