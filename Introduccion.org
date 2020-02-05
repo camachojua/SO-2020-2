@@ -306,7 +306,67 @@ kernel son:
   }
 #+end_src
 
+
 [[file:kernel_chiquito.png]]
+
+En el diagrama el SO hace uso de un temporizador para saber cúando
+debe cargar otro programa de usuario, esta técnica es conocida como
+/partición de tiempo/ (time slicing). Esa fue una de las técnicas
+utilizadas por los sistemas de tiempo compartido implementados en los
+mainframes, donde sólo un programa era ejecutado en determinado
+momento. Conforme fue avanzando la electrónica y la memoria RAM de las
+computadoras fue creciendo aparecieron más técnicas para administrar
+la ejecución de los programas, una de ellas consistía en cargar tantos
+programas como espacio de memoria tuviéramos disponibles:
+
+#+begin_src plantuml :file memoria1.png
+  digraph memoria {
+    node [style=rounded]
+
+    addr [shape=record, label="<n> 0xFFFF| <a> ... | <b> 0x3000 | <c> 0x2000| <d> 0x0000"]
+    RAM [shape=record, label ="<n> Programa n| <a> ... | <b> Programa 2| <c> Programa 1 | <d> Sistema Operativo"]
+
+    RAM:d -> addr:d [label="Dirección de memoria"]
+    RAM:c -> addr:c
+    RAM:b -> addr:b
+    RAM:a -> addr:a
+    RAM:n -> addr:n
+  }
+#+end_src
+
+[[file:memoria1.png]]
+
+Esto quiere decir que el modelo de memoria de los programas (la parte
+que determina la dirección en memoria de una variable/función) debe
+ser un poco más compleja: hay que obtener la dirección inicial del
+programa y hacer un cálculo sencillo (sumar o multiplicar bytes) para
+obtener la dirección física de los elementos dentro del mismo programa
+(/dirección efectiva/), esto se logra utilizando un registro llamado
+/registro índice/ el cual almacena la dirección inicial del programa y
+la suma a la dirección de la variable/función que se desea obtener:
+
+#+begin_src plantuml :file registro_indice.png
+  digraph indice {
+    node [style=rounded]
+
+    addr [shape = box, label = "Dirección dentro del programa (relativa)"]
+    ind [shape = box, label = "Dirección de inicio del programa (absoluta)"]
+    suma [shape = diamond, label = "+"]
+    real [shape = none, label = "Dirección efectiva (física)"]
+
+    addr -> suma -> real
+    ind -> suma
+  }
+#+end_src
+
+#+RESULTS:
+[[file:registro_indice.png]]
+
+Este *modelo de direccionamiento* se llama /direccionamiento
+relativo/, los SO's modernos utilizan técnicas más avanzadas (memoria
+virtual con paginación múltiple) para crear la ilusión de que el
+sistema tiene memoria ilimitada y que cada programa tiene acceso a
+toda la memoria disponible dentro del sistema.
 
 ** Tarea
 + Clonar este repositorio.
@@ -324,4 +384,6 @@ kernel son:
   + Tomando como referencia tu día a día como computólogo frente a una
     computadora electrónica digital ¿Qué interrupciones de software
     utilizas a menudo?
+  + ¿Cómo se llama la unidad (dentro del CPU) encargada del
+    direccionamiento de memoria?
 ** Para la siguiente semana
