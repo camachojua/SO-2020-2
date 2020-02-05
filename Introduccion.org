@@ -212,7 +212,38 @@ _estado actual_ de ejecución en algún lado (recuerden su clase de
 arquitectura de computadoras), las computadoras electrónicas digitales
 utilizan un tipo de memoria llamado *pila del sistema*, el manejador
 de interrupciones utiliza la pila para guardar toda la información que
-necesite posteriormente.
+necesite posteriormente, esta información viene en forma de valores
+guardados en los registros del cpu.
+
+¿Dónde se encuentra almacenado el manejador de registros? ¿Cómo puede
+el cpu encontrarlo? Las computadoras electrónicas digitales funcionan
+gracias a la interconectividad de diversos dispositivos conectados
+físicamente a través de alambres (técnicamente llamados /buses de
+datos/), estos buses de datos son enumerados y se les asigna una
+dirección de memoria única, mediante la cual pueden ser identificados
+y llamados cuando se necesite. El conjunto de direcciones de memoria
+asignados a dispositivos físicos y a funcionalidad muy específica del
+sistema operativo es conocido como *vector de interrupciones* y, como
+su nombre lo indica, guarda un apuntador a la dirección de memoria
+donde se encuentra la interrupción, de esta forma el software puede
+hablar con el hardware de manera "transparente".
+
+#+begin_src plantuml :file interrupcion.png
+  digraph interrupcion {
+    node [style=rounded]
+    programa [shape=box, label="Programa"]
+    interrupt [shape=box, label="Manejador de Interrupciones"]
+    so [shape=box, label="Sistema Operativo"]
+
+    programa -> interrupt [label="Necesita recurso"]
+    interrupt -> interrupt [label="Procesa petición"]
+    interrupt -> so [label="Regresa control al SO"]
+    so -> programa [label="Ejecuta un programa"]
+  }
+#+end_src
+
+
+[[file:interrupcion.png]]
 
 ** Tarea
 + Clonar este repositorio.
