@@ -275,6 +275,38 @@ semáforos y candados. Debido a la inherente complejidad introducida
 por estructuras de datos mutables y andar observando el estado de
 ejecución la mayoría de los SO's implementa una capa de abstracción
 sobre las interrupciones llamada *llamadas al sistema/señales*.
+**** Kernel
+
+Hasta este punto hemos hablado de la capacidad de ejecución de
+múltiples programas por parte de las computadoras, de algunos
+subsistemas que permiten obtener recursos y de la habilidad de cambiar
+el programa en ejecución ¿Quién es el encargado de orquestar todas
+estas actividades? Si tuviéramos que describirlo debería ser algún
+tipo de súper programa capaz de saber cómo realizar cambios de
+contexto, saber quién realiza una petición y quién la puede servir,
+además debe estar ejecuándose todo el tiempo para poder administrar
+todos esos eventos. Este programa es la parte fundamental del sistema
+operativo y se conoce como *kernel*, en el lenguaje correspondiente a
+esta materia haremos una distinción entre el kernel (y los procesos
+asociados a él) y los demás programas, los primeros son conocidos como
+/programas de sistema/ mientras que los últimos son conocidos como
+/programas de usuarios/ o /procesos/. Las tareas fundamentales de un
+kernel son:
+
+#+begin_src plantuml :file kernel_chiquito.png
+  digraph kern {
+    node [style=rounded]
+    carga [shape=box, label="Cargar programa"]
+    restaura [shape=box, label="Restaura estado"]
+    ejecuta [shape=box, label="Ejecuta programa"]
+    interrupt [shape=box, label="Interrupción del temporizador"]
+    para [shape=box, label="Para el programa"]
+
+    carga -> restaura -> ejecuta -> interrupt -> para -> carga
+  }
+#+end_src
+
+[[file:kernel_chiquito.png]]
 
 ** Tarea
 + Clonar este repositorio.
