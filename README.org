@@ -33,7 +33,7 @@ asistir a la clase, recuerden que las participaciones pueden ser
 intercambiadas por un 20% de la calificación final.
 ** Temario
 *** [[file:Introduccion.org][Introducción]]
-*** Modelo de ejecución de programas
+*** [[file:modelo_ejecucion.org][Ejecución de un programa en memoria]]
 *** Arquitectura general de los Sistemas Operativos
 *** Modelos de control de acceso
 *** Administración de procesos
