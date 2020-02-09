@@ -155,7 +155,6 @@ ejecutarán en el equipo.
     }
 #+end_src
 
-#+RESULTS:
 [[file:llamada.png]]
 
 En este mundo moderno los microprocesadores ejecutan más de un
@@ -188,8 +187,185 @@ la ejecución de otros, esto se llama *cambio de contexto*:
 
 #+end_src
 
-#+RESULTS:
 [[file:contexto.png]]
+
+El mecanismo físico dentro del cpu que hace posible la ejecución
+simultánea de tareas es llamado _unidad de intrerrupcíon_ y su trabajo
+es escuchar las peticiones de otros dispositivos (incluido el cpu
+mismo). La forma de trabajo es la siguiente: un dispositivo necesita
+atención y para obtenerla hace lo que todo niño de tres años haría,
+esto es, llorar. Dentro de este contexto la petición se le conoce como
+*petición de interrupción*, esta petición tiene un efecto secundario:
+forza al cpu para terminar la ejecución de lo que esté computando en
+ese momento, realiza un cambio de contexto y reanuda la ejecución de
+un programa especial llamado *manejador de interrupciones* (/interrupt
+handler/).  Este manejador de interrupciones es el encargado de
+averiguar quién, dónde, cómo y por qué se creó la petición, hace todos
+los arreglos posibles para que dicha petición sea cumplida en el
+futuro, avisa al programa/dispositivo que generó la interrupción que
+su petición ha sido atendida y realiza un cambio de contexto para que
+otro programa sea ejecutado en la cpu ¿Qué pasaría si no existiera un
+manejador de interrupciones?
+
+Para poder realizar un cambio de contexto es necesario guardar el
+_estado actual_ de ejecución en algún lado (recuerden su clase de
+arquitectura de computadoras), las computadoras electrónicas digitales
+utilizan un tipo de memoria llamado *pila del sistema*, el manejador
+de interrupciones utiliza la pila para guardar toda la información que
+necesite posteriormente, esta información viene en forma de valores
+guardados en los registros del cpu.
+
+¿Dónde se encuentra almacenado el manejador de registros? ¿Cómo puede
+el cpu encontrarlo? Las computadoras electrónicas digitales funcionan
+gracias a la interconectividad de diversos dispositivos conectados
+físicamente a través de alambres (técnicamente llamados /buses de
+datos/), estos buses de datos son enumerados y se les asigna una
+dirección de memoria única, mediante la cual pueden ser identificados
+y llamados cuando se necesite. El conjunto de direcciones de memoria
+asignados a dispositivos físicos y a funcionalidad muy específica del
+sistema operativo es conocido como *vector de interrupciones* y, como
+su nombre lo indica, guarda un apuntador a la dirección de memoria
+donde se encuentra la interrupción, de esta forma el software puede
+hablar con el hardware de manera "transparente".
+
+#+begin_src plantuml :file interrupcion.png
+  digraph interrupcion {
+    node [style=rounded]
+    programa [shape=box, label="Programa"]
+    interrupt [shape=box, label="Manejador de Interrupciones"]
+    so [shape=box, label="Sistema Operativo"]
+
+    programa -> interrupt [label="Necesita recurso"]
+    interrupt -> interrupt [label="Procesa petición"]
+    interrupt -> so [label="Regresa control al SO"]
+    so -> programa [label="Ejecuta un programa"]
+  }
+#+end_src
+
+
+[[file:interrupcion.png]]
+
+Las interrupciones originadas desde un dispositivo físico se conocen
+como *interrupciones de hardware*, mientras que las lanzadas por el
+sistema operativo como parte de una solicitud de un programa de
+usuario son conocidas como *interrupciones de sistema/software*. Las
+interrupciones de hardware están limitadas al número y características
+de los dispositivos que conforman la computadora. Un ejemplo de
+interrupción de hardware es la división entre cero y un ejemplo de
+interrupción de software es la creación de un archivo.
+
+Pero ¿qué es una interrupción? Podemos definirla como:
+
+#+begin_quote
+Una *interrupción* es una señal de entrada enviada al procesador la
+cual indica que surgió un evento que requiere procesamiento inmediato.
+
+Una señal de interrupción aletra al procesador y sirve como una
+petición para interrumpir la ejecución del programa que se encuentra
+actualmente dentro del cpu.
+#+end_quote
+
+Dada la basta cantidad de interrupciones que se pueden generar se ha
+implementado una jerarquía o *prioritización* de las interrupciones:
+las de hardware tienen preferencia sobre cualquier interrupción de
+software, esto implica que una interrupción de baja prioridad /puede
+ser interrumpida/ por otra de prioridad mayor. Para tener control
+sobre el tiempo de ejecución se implementan /contadores/ (timers),
+semáforos y candados. Debido a la inherente complejidad introducida
+por estructuras de datos mutables y andar observando el estado de
+ejecución la mayoría de los SO's implementa una capa de abstracción
+sobre las interrupciones llamada *llamadas al sistema/señales*.
+**** Kernel
+
+Hasta este punto hemos hablado de la capacidad de ejecución de
+múltiples programas por parte de las computadoras, de algunos
+subsistemas que permiten obtener recursos y de la habilidad de cambiar
+el programa en ejecución ¿Quién es el encargado de orquestar todas
+estas actividades? Si tuviéramos que describirlo debería ser algún
+tipo de súper programa capaz de saber cómo realizar cambios de
+contexto, saber quién realiza una petición y quién la puede servir,
+además debe estar ejecuándose todo el tiempo para poder administrar
+todos esos eventos. Este programa es la parte fundamental del sistema
+operativo y se conoce como *kernel*, en el lenguaje correspondiente a
+esta materia haremos una distinción entre el kernel (y los procesos
+asociados a él) y los demás programas, los primeros son conocidos como
+/programas de sistema/ mientras que los últimos son conocidos como
+/programas de usuarios/ o /procesos/. Las tareas fundamentales de un
+kernel son:
+
+#+begin_src plantuml :file kernel_chiquito.png
+  digraph kern {
+    node [style=rounded]
+    carga [shape=box, label="Cargar programa"]
+    restaura [shape=box, label="Restaura estado"]
+    ejecuta [shape=box, label="Ejecuta programa"]
+    interrupt [shape=box, label="Interrupción del temporizador"]
+    para [shape=box, label="Para el programa"]
+
+    carga -> restaura -> ejecuta -> interrupt -> para -> carga
+  }
+#+end_src
+
+
+[[file:kernel_chiquito.png]]
+
+En el diagrama el SO hace uso de un temporizador para saber cúando
+debe cargar otro programa de usuario, esta técnica es conocida como
+/partición de tiempo/ (time slicing). Esa fue una de las técnicas
+utilizadas por los sistemas de tiempo compartido implementados en los
+mainframes, donde sólo un programa era ejecutado en determinado
+momento. Conforme fue avanzando la electrónica y la memoria RAM de las
+computadoras fue creciendo aparecieron más técnicas para administrar
+la ejecución de los programas, una de ellas consistía en cargar tantos
+programas como espacio de memoria tuviéramos disponibles:
+
+#+begin_src plantuml :file memoria1.png
+  digraph memoria {
+    node [style=rounded]
+
+    addr [shape=record, label="<n> 0xFFFF| <a> ... | <b> 0x3000 | <c> 0x2000| <d> 0x0000"]
+    RAM [shape=record, label ="<n> Programa n| <a> ... | <b> Programa 2| <c> Programa 1 | <d> Sistema Operativo"]
+
+    RAM:d -> addr:d [label="Dirección de memoria"]
+    RAM:c -> addr:c
+    RAM:b -> addr:b
+    RAM:a -> addr:a
+    RAM:n -> addr:n
+  }
+#+end_src
+
+[[file:memoria1.png]]
+
+Esto quiere decir que el modelo de memoria de los programas (la parte
+que determina la dirección en memoria de una variable/función) debe
+ser un poco más compleja: hay que obtener la dirección inicial del
+programa y hacer un cálculo sencillo (sumar o multiplicar bytes) para
+obtener la dirección física de los elementos dentro del mismo programa
+(/dirección efectiva/), esto se logra utilizando un registro llamado
+/registro índice/ el cual almacena la dirección inicial del programa y
+la suma a la dirección de la variable/función que se desea obtener:
+
+#+begin_src plantuml :file registro_indice.png
+  digraph indice {
+    node [style=rounded]
+
+    addr [shape = box, label = "Dirección dentro del programa (relativa)"]
+    ind [shape = box, label = "Dirección de inicio del programa (absoluta)"]
+    suma [shape = diamond, label = "+"]
+    real [shape = none, label = "Dirección efectiva (física)"]
+
+    addr -> suma -> real
+    ind -> suma
+  }
+#+end_src
+
+[[file:registro_indice.png]]
+
+Este *modelo de direccionamiento* se llama /direccionamiento
+relativo/, los SO's modernos utilizan técnicas más avanzadas (memoria
+virtual con paginación múltiple) para crear la ilusión de que el
+sistema tiene memoria ilimitada y que cada programa tiene acceso a
+toda la memoria disponible dentro del sistema.
 
 ** Tarea
 + Clonar este repositorio.
@@ -198,4 +374,15 @@ la ejecución de otros, esto se llama *cambio de contexto*:
   + Nombre completo, número de cuenta y aspiraciones del curso.
   + ¿Por qué el costo de empaquetado de un chip de procesamiento es
     más alto que el de la creación del chip?
++ Crear un archivo llamado =tareas_introduccion.org= que responda lo
+  siguiente:
+  + ¿Por qué es necesario que exista un manejador de interrupciones?
+    ¿Qué es lo que podría pasar si no existiera?
+  + Medita un poco y piensa ¿Qué otras interrupciones de hardware
+    supones que existen en la arquitectura =x86_64=?
+  + Tomando como referencia tu día a día como computólogo frente a una
+    computadora electrónica digital ¿Qué interrupciones de software
+    utilizas a menudo?
+  + ¿Cómo se llama la unidad (dentro del CPU) encargada del
+    direccionamiento de memoria?
 ** Para la siguiente semana
