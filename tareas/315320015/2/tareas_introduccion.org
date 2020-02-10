@@ -1,0 +1,29 @@
+
+TAREAS INTRODUCCION -*- mode: org -*-
+
+#+STARTUP: showall
+
+* Tarea 2
+Respuestas a las preguntas de la tarea 2 correspondiente al issue 
+** 1. ¿Por qué es necesario que exista un manejador de interrupciones?, ¿Qué es lo que podría pasar si no existiera?
+   Su importancia radica en que el usuario tenga un control mucho mayor sobre la computadora, 
+   es decir, sin un manejador que controle las interrupciones el usuario tendría que esperar
+   a que alguna otra aplicación o programa de menor o mayor prioridad sea ejecutado antes
+   del esperado, lo idela y lo que se desea es que el usuario tenga una respuesta casi inmediata.
+
+** 2. ¿Qué otras interrupciones de hardware supones que existen en la arquitectura x86_64?
+   Además de las de hardware, que son en los perifericos por ejemplo, en el teclado, tarjeta de red, etc. existen
+   las interrupcioes de software que, como su nombre lo indica, las genera el mismo software mediante llamadas al
+   sistema, además existen las excepciones que son generadas por el CPU, manda mensajes como ERROR: division por
+   cero.
+
+** 3. ¿Qué interrupciones de software utilizas a menudo?
+   Cuando se programa, usando matemática, usar un try/catch para encontrar cuando se divide por cero,
+   si el lenguaje no lo permite, raices de números negativos, exceder a un espacio de memoria, en el compilador
+   de Haskell (ghci) se usa un comando para interrumpir una ejecución, que se puede usar como comando de sistemas 
+   Unix (C-c).
+
+** 4. ¿Cómo se llama la unidad (dentro del CPU) encargada del direccionamiento de memoria?
+   Unidad de control, esta se encarga de mandar las señales en el bus correspondiente que contiene
+   la dirección a la cual se quiere acceder, esas direcciones se representan en el sistema numérico
+   hexadecimal.
