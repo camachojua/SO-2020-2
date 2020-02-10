@@ -1,0 +1,98 @@
+* Ejecución de un programa en memoria
+
+El objetivo final de un programa es ejecutar un conjunto de
+operaciones sobre la información para obtener un resultado: ya sea en
+forma de mutación de estado o la generación de más información útil
+para el que ejecuta dicho programa. Para que la ejecución pueda darse
+es necesario trasversar jerarquías de organización que van desde el
+sistema operativo hasta el hardware, cada elemento en la jerarquía de
+hardware es más caro y más escaso que el anterior (piensa en los tipos
+de memoria que existen en una computadora electrónica digital: RAM,
+cache, registros, etc.), si los recursos son escasos los programas
+deberán competir entre si para poder ser ejecutados además cada
+transición entre los niveles de jerarquía requiere tiempo y recursos
+de cómputo para ser completada.
+
+[[./jerarquia.jpg]]
+
+El lado izquierdo de la figura representa la jerarquía de las
+entidades de hardware que corresponden (de alguna manera) a su
+contraparte dentro del sistema operativo. Antes de ser ejecutado, un
+programa se encuentra almacenado en la unidad de almacenamiento y
+termina su ejecución gracias a que sus instrucciones fueron procesadas
+en el cpu. Usualmente, el tiempo que se requiere para mover la
+información a la siguiente jerarquía de hardware depende de la
+latencia del nivel más bajo que es el tiempo necesario para que el
+receptor pueda leer la petición que se hace.
+
+Del lado derecho tenemos la jerarquía de software de abajo hacia
+arriba podemos encontrar los problemas más comunes que pueden afectar
+el desempeño del software:
+
++ Instrucciones de máquina ::  La mayoría de las instrucciones son
+  capaces de ejecutarse en un único tick de reloj dentro del mismo
+  procesador si no existe un error de cache o de TLB.
++ Hilos listos para ejecutarse :: Con un algoritmo de
+  selección el calendarizador (parte del SO) elije al mejor candidato
+  dentro de la lista de procesos para ejecutarse e inserta sus
+  instrucciones en el cpu.
++ Hilos sin ejecutarse :: Cuando un hilo está listo para ejecutarse
+  pero no fue elegido por el calendarizador el trabajo útil del hilo
+  se reduce a cero. Si algún conjunto de hilos es cargado en la misma
+  región fisica de memoria podría alterar el caché previo que se tenía
+  aumentando la latencia al momento de solicitar información.
++ Hilos en espera :: Si un hilo necesita un recurso y éste no puede
+  satisfacerse de manera inmediata (como una operación síncrona de
+  entrada/salida) el hilo se pone en la lista de hilos en espera de
+  una operación y no se ejecutará hasta que la petición se resuelva
+  (favorable o no).
++ Manejadores de interrupción :: El mecanismo para notificar al
+  sistema operativo que ha ocurrido un evento es interrupir el hilo de
+  ejecución que se encuentra actualmente en el cpu y transefir el
+  control al manejador de interrupciones.
+  Antes de que una interrupción pueda ser despachada el sistema de
+  cómputo debe ser capaz de guardar el estado actual de ejecución para
+  poder ser restablecido posteriormente, después de almacenar el estado
+  la función manejadora es llamada, estas funciones experimentan grandes
+  retrasos al enrutar las peticiones hacia los elementos de hardware
+  correspondientes: si el código del manejador no fue llamado con
+  anterioridad el programa debe cargarse en memoria desde el disco lo
+  que implica buscar en toda la memoria RAM, cachés y estructuras de
+  datos intermedias que ayudan a administrar el subsistema de
+  memoria. Esto retarda más la ejecución del hilo original ya que el
+  manejador de interrupciones puede tardar demasiado en ejecutarse.
++ Programas ejecutables :: Cuando un programa es invocado *se
+  convierte en un proceso*, la únidad mínima de administracíon de un
+  sistema operativo es el proceso.  Antes de que nuestro programa se
+  ejecute el SO verifica el contenido de todas las *variables de
+  entorno* y su valor le es notificado a un elemento conocido como
+  *cargador de programas* encargado de resolver cualquier dependencia
+  (bibliotecas y recursos) necesaria para ejecutar el progama.
+
+  Cuando las dependencias previas a la ejecución se cumplen el sistema
+  operativo reserva memoria necesaria (y un poco más) para almacenar
+  el código binario de nuestro programa, a continuación llena una
+  *estructura de datos asociada a un proceso* (en linux la estructura
+  se conoce como =task structure= que puedes ver [[http://www.tldp.org/LDP/lki/lki-2.html][aquí]]) ligado a esta
+  estructura se encuentran implícitamente un conjunto de recursos
+  necesarios para ejecutar un programa: estado del proceso, proceso
+  padre, hijos, descriptores de archivo, etc.
+
+  El SO crea un hilo asociado al proceso, un hilo se puede definir
+  como:
+
+  #+begin_quote
+  Estado de ejecución actual de una sola instancia de un programa
+  #+end_quote
+
+  Dependiendo de la implementación los hilos pueden compartir más o
+  menos recursos (además de la sección de texto de un programa), los
+  recursos de cada hilo están ligados al proceso original.
+
+** Modelo de memoria
+
+Antes de poder ser ejecutado, el código fuente de un programa necesita
+convertirse en código ejecutable que el SO pueda cargar y el cpu pueda
+interpretar.
+
+[[./modelo_memoria.png]]
