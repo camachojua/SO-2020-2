@@ -1,0 +1,24 @@
+1. ¿Por qué es necesario que exista un manejador de interrupciones?
+¿Qué es lo que podría pasar si no existiera?
+Porque a veces los dispositivos o el software envian información 
+importante al CPU que requiere atención inmediata.
+Si no existiera, esta informacion podria perderse y nunca ser procesada.
+3. Medita un poco y piensa ¿Qué otras interrupciones de hardware
+supones que existen en la arquitectura =x86_64=?
+Cuando presionamos teclas en el teclado, cuando movemos o presionamos
+botones en el mouse, o cuando hay cambios en el estado de la tarjeta 
+de red.
+4. Tomando como referencia tu día a día como computólogo frente a una 
+computadora electrónica digital ¿Qué interrupciones de software
+utilizas a menudo?
+Cuando un programa se cicla, utilizo la combinación de teclas ctrl + c 
+para matar el proceso, cuando escribo un programa que requiere leer y/o
+escribir archivos o cuando cometo errores en un programa y esto lleva a 
+excepciones como la división entre cero, segmentation fault y
+page fault.
+4. ¿Cómo se llama la unidad (dentro del CPU) encargada del
+direccionamiento de memoria?
+Unidad de gestión de memoria, unidad de administración de memoria 
+o unidad de manejo de memoria2​ (del inglés Memory Management Unit, MMU)
+
+
