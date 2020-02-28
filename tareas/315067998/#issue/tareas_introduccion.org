@@ -1,0 +1,15 @@
+** ¿Por qué es necesario que exista un manejador de interrupciones? ¿Qué es lo que podría pasar si no existiera?
+
+    -- Porque se encarga de informarse sobre todo lo que haya pedido una petición, hace lo posible para que el sistema cumpla la petición, avisa al sistema que genero la interrupción que su petición fue cumplida y hace los cambios necesarios para que otro programa se ejecute en la cpu. Si no se tiene podría pasar que de tantas peticiones habidas en el sistema el poder ejecutar un programa sería muy tardado ya que antes de el se habrían hecho varias peticiones.
+
+** Medita un poco y piensa ¿Qué otras interrupciones de hardware supones que existen en la arquitectura x86_64?
+
+    -- Puedo suponer que las interrupciones hechas por dispositivos de audio, video, de red, hasta controladores externos mediante usb como los discos duros externos y los controles de juego.
+
+** Tomando como referencia tu día a día como computólogo frente a una computadora electrónica digital ¿Qué interrupciones de software utilizas a menudo?
+
+    -- Pues podrían ser las excepciones, errores, llenados de memoria a través de loops sin fin.
+
+** ¿Cómo se llama la unidad (dentro del CPU) encargada del direccionamiento de memoria?
+
+    -- Se llama Unidad de Gestion de Memoria o MMU por siglas en inglés de Managment Memory Unit.
