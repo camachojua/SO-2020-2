@@ -96,8 +96,6 @@ convertirse en código ejecutable que el SO pueda cargar y el cpu pueda
 interpretar.
 
 [[./modelo_memoria.png]]
-<<<<<<< master
-=======
 
 El espacio de memoria está divido en dos secciones:
 
@@ -242,4 +240,3 @@ la tabla de páginas contiene una bandera que indica si la página
 correspondiente se encuentra en un marco de página (memoria física) o no.
 
 [[./paginacion.png]]
->>>>>>> master
