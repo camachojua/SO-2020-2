@@ -96,3 +96,150 @@ convertirse en código ejecutable que el SO pueda cargar y el cpu pueda
 interpretar.
 
 [[./modelo_memoria.png]]
+<<<<<<< master
+=======
+
+El espacio de memoria está divido en dos secciones:
+
++ Direcciones lógicas :: Generadas por el CPU.
++ Direcciones físicas :: Se encuentran en la memoria física del sistema.
+
+En tiempo de compilación y carga las memorias físicas y lógicas son
+iguales, es en tiempo de ejecución dónde comienzan a divergir.
+
+
+Un programa sólo se puede convertir en proceso si su información está
+cargada en memoria, para poder cargar la información el SO espera que
+el binario ejecutable del programa cumpla con requerimientos de
+compatibilidad mínimos, entre los cuales destaca la organización de
+los recursos propios del programa en la memoria. Al conjunto de
+direcciones de memorias asignadas a un proceso se le conoce como
+*espacio de memoria*. El programa se dividirá en distintas *secciones*:
+
++ Sección de texto :: Almacena el código ejecutable del programa.
++ Sección de datos :: Espacio de almacenamiento de variables cuyo
+  valor quedó establecido en tiempo de compilación (variables
+  globales, cadenas, números, etc).
++ Sección de símbolos :: Utilizado por variables estáticas que no han
+  sido inicializadas, es conocido como *bss*.
++ Montículo :: Usado para la creación de variables dinámicas.
++ Pila :: Usado para guardar las variables automáticas y utilizado
+  como medio de almacenamiento de los registros entre llamadas a
+  funciones.
+
+[[./programa_mem.jpg]]
+
+Si el programa cumple con esa representación binaria el SO puede
+cargarlo en memoria para poder ejecutarlo posteriormente. Tomando en
+cuenta que todos los procesos deben tener la misma distribución de
+memoria se presenta a continuación una imagen burda de cómo se
+administra la memoria física tomando en cuenta muchos procesos en ejecución:
+
+[[./programa_memoria.svg]]
+
+
+
+
+Es decir debe existir un mecanismo *encargado de adminisrtar las
+direcciones de memoria que necesitan los programas para su ejecución*,
+este subsistema es conocido como *subsistema de administración de
+memoria* su labor es identificar la ubicación de la información dentro
+de la memoria. Contiene un conjunto de algoritmos que determinan la
+cantidad teórica máxima de memoria que se puede computar y
+utilizar. Los algoritmos de administración de memoria más conocidos
+(listados por fecha de aparición) son:
+
+*** Asignación contigua de memoria
+
+Es la técnica más sencilla de asignación de memoria en la que toda la
+memoria del equipo (sin contar aquella asignada al SO) está disponible
+para la aplicación que se encuentra actualmente en
+ejecución. Regularmente se reservan los últimos bytes de la memoria
+para almacenar el contenido del SO, la ejecución de múltiples
+programas es posible gracias a un cambio de contexto.
+
+[[./single_partition.png]]
+
+*** Asignación por particiones
+
+La memoria principal es divida en _particiones_ contiguas de memoria,
+cada partición puede contener toda la información asociada a un
+proceso. La administración de memoria consiste en asignar una
+partición a un proceso cuando éste está disponible para ejecución para
+después desalojarlo cuando termina su ejecución.
+
+A diferencia de la asignación contigua de memoria esta técnica de
+asignación necesita soporte especial de hardware para prevenir que los
+procesos intervengan entre sí cuando se encuentran en ejecución, este
+harware es generalmente presentado en forma de _registros especiales_
+conocidos como *registro base* y *registro límite*, estos registros
+almacenan la dirección de memoria inicial del proceso y el tamaño
+máximo que éste puede adquirir, definiendo algo conocido como *espacio
+de memoria*.
+
+Si un proceso desea acceder a una dirección fuera de su espacio de
+memoria se levanta una bandera en el registro de estado (=flags
+register= en la arquitectura x86) del procesador generando una
+interrupción de hardware donde el manejador de dicha interrupción que por
+lo general termina la ejecución del programa que originó la interrupción.
+
+*** Asignación por segmentos
+
+Esta forma de administración comienza dividiendo la memoria de los
+procesos en _segmentos_ de tamaño fijo, el tamaño del segmento es tal
+que la cantidad total de memoria física siempre sea dividible por el
+tamaño del segmento (es decir que
+$segmento\mod{memoria}\equiv{0}$). Para poder administrar el contenido
+de los segmentos físicos es necesario que el equipo de cómputo cuente
+con un hardware especial llamado *tabla de segmentos*, esta tabla
+contiene un identificador de segmento, dirección de memoria,
+información de control de acceso (si el segmento pertenece al SO o no)
+y estado (vacío o no).
+
+[[./segmentacion.png]]
+
+Debido a la segmentación es posible cargar parcialmente un programa en
+memoria de modo que sólo ocupamos la memoria necesaria para ejecutar
+la característica deseada de un programa (piensa en cómo se cargan en
+memoria los videojuegos: al iniciar sólo está el menu de inicio en
+memoria) lo que implica que *¡las direcciones de memoria de un proceso
+no son contiguas!*.
+
+Al tener direcciones de memoria /fragmentadas/ el SO hace uso de la
+tabla de segmentos para verificar la cantidad de memoria disponible
+contra la necesaria para ejecutar un proceso, si la cantidad de
+memoria disponible es menor que la necesaria el SO deberá reemplazar
+un segmento no utilizado por otro proceso y reemplazarlo por el
+correspondiente, para tratar de aliviar los tiempos implicados en la
+carga y descarga de segmentos el SO hace uso de un tipo de memoria
+especial llamada *memoria de intercambio* que almacena los segmentos
+no utilizados por el momento.
+
+[[./hardware_segmentacion.png]]
+
+*** Asignación por memoria virtual
+
+Esta técnica de administración genera una *abstracción total de la
+memoria* presentando un modelo totalmente distinto a los procesos, por
+esta razón estas técnicas son llamadas técnicas de *memoria
+virtual*. Utilizando una combinación de hardware y cálculo de
+direccionamiento el SO asigna direcciones de memoria /virtual/ a
+regiones de memoria /física/ (RAM o disco), eliminando el concepto de
+memoria compartida (como en la segmentación), aumentando el
+aislamiento entre procesos y dando la ilusión que el sistema posee
+memoria infinita. El soporte de hardware se conoce como *unidad de
+administración de memoria (MMU)*
+
+**** Paginación
+
+Es una implementación específica de la memoria virtual, consiste en
+dividir la memoria virtual en *páginas* (bloques contiguos de memoria
+virtual) que serán almacenadas en *marcos de página* (división
+contigua de tamaño fijo de la memoria física). Para administrar las
+páginas y los marcos se hace uso de una *tabla de páginas* utilizada
+como traductor entre memoria física y memoria virtual. Cada entrada en
+la tabla de páginas contiene una bandera que indica si la página
+correspondiente se encuentra en un marco de página (memoria física) o no.
+
+[[./paginacion.png]]
+>>>>>>> master
