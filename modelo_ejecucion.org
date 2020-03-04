@@ -105,7 +105,6 @@ El espacio de memoria está divido en dos secciones:
 En tiempo de compilación y carga las memorias físicas y lógicas son
 iguales, es en tiempo de ejecución dónde comienzan a divergir.
 
-
 Un programa sólo se puede convertir en proceso si su información está
 cargada en memoria, para poder cargar la información el SO espera que
 el binario ejecutable del programa cumpla con requerimientos de
@@ -134,9 +133,6 @@ memoria se presenta a continuación una imagen burda de cómo se
 administra la memoria física tomando en cuenta muchos procesos en ejecución:
 
 [[./programa_memoria.svg]]
-
-
-
 
 Es decir debe existir un mecanismo *encargado de adminisrtar las
 direcciones de memoria que necesitan los programas para su ejecución*,
@@ -240,3 +236,40 @@ la tabla de páginas contiene una bandera que indica si la página
 correspondiente se encuentra en un marco de página (memoria física) o no.
 
 [[./paginacion.png]]
+
+*** Recapitulando
+
+El sistema operativo es responsable de administrar las siguientes
+operaciones respecto a la administración de memoria:
+
++ Al aumentar el nivel de multiprogramación debemos lidiar con
+  múltiples procesos en ejecución por lo que debemos mantener dichos
+  procesos en memoria.
++ Tener un registro de qué partes de la memoria se encuentran
+  utilizadas y qué procesos utilizan dichas partes.
++ Asignar y limpiar espacio de memoria según sea requerido.
++ Decidir qué procesos (o partes de ellos) e información se moverá
+  hacia y desde la memoria.
+
+Los métodos de administración de memoria deben ser complementados con
+cambios en el hardware del CPU y estas técnicas van desde agregar un
+par de registros hasta crear un circuito complejo para el cáculo de
+direcciones de memoria.
+
+*¿Cómo es que se generan las direcciones de memoria?* El CPU obtiene
+ instrucciones de acuerdo al valor del =contador de programa=, dicha
+ instrucción se decodifica se ejecuta y un valor es guardado como
+ resultado en un registro. Aunque el ciclo de /obtención-ejecución/ de
+ instrucciones es simple su interacción con la memoria principal no lo
+ es puesto que en cada punto de ese ciclo puede haber información que
+ no se encuentra disponible para su uso inmediato requiriendo
+ transferencia de información desde otros lugares (unidades de
+ almacenamiento secundario, por ejemlpo).
+
+*¿Quién se encarga de transferir la información desde y hacia la
+ memoria?* La unidad de cómputo encargada de esta acción se conoce
+ como *unidad de memoria*, esta unidad sólo transfiere flujos de bytes
+ entre el CPU, los periféricos y la memoria principal, sin embargo *no
+ realiza cálculos sobre direcciones de memoria* el cálculo de dichas
+ direcciones es responsabilidad de la *unidad de administración de
+ memoria (MMU)*.
