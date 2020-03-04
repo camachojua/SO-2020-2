@@ -147,25 +147,18 @@ utilizar. Los algoritmos de administración de memoria más conocidos
 
 Es la técnica más sencilla de asignación de memoria en la que toda la
 memoria del equipo (sin contar aquella asignada al SO) está disponible
-para la aplicación que se encuentra actualmente en
+para las aplicaciones que se encuentran actualmente en
 ejecución. Regularmente se reservan los últimos bytes de la memoria
 para almacenar el contenido del SO, la ejecución de múltiples
 programas es posible gracias a un cambio de contexto.
 
 [[./single_partition.png]]
 
-*** Asignación por particiones
-
-La memoria principal es divida en _particiones_ contiguas de memoria,
-cada partición puede contener toda la información asociada a un
-proceso. La administración de memoria consiste en asignar una
-partición a un proceso cuando éste está disponible para ejecución para
-después desalojarlo cuando termina su ejecución.
-
-A diferencia de la asignación contigua de memoria esta técnica de
-asignación necesita soporte especial de hardware para prevenir que los
-procesos intervengan entre sí cuando se encuentran en ejecución, este
-harware es generalmente presentado en forma de _registros especiales_
+Los procesos que son cargados en memoria se almacenan de manera
+contigua dentro de la memoria física. Esta técnica de asignación
+necesita soporte especial de hardware para prevenir que los procesos
+intervengan entre sí cuando se encuentran en ejecución, este harware
+es generalmente presentado en forma de _registros especiales_
 conocidos como *registro base* y *registro límite*, estos registros
 almacenan la dirección de memoria inicial del proceso y el tamaño
 máximo que éste puede adquirir, definiendo algo conocido como *espacio
@@ -176,6 +169,49 @@ memoria se levanta una bandera en el registro de estado (=flags
 register= en la arquitectura x86) del procesador generando una
 interrupción de hardware donde el manejador de dicha interrupción que por
 lo general termina la ejecución del programa que originó la interrupción.
+
+**** Asignación por particiones
+
+La memoria principal es divida en _particiones_ contiguas de memoria,
+cada partición puede contener toda la información asociada a un
+proceso. La administración de memoria consiste en asignar una
+partición a un proceso cuando éste está disponible para ejecución para
+después desalojarlo cuando termina su ejecución.
+
+Este esquema de particionamiento permite tener procesos de diferentes
+dimensiones y es conocido como *particionamiento variable*, el sistema
+operativo mantiene una tabla de /particiones/ donde indica qué
+secciones de memoria se encuentran libres o asignadas. Una sección de
+memoria que no se encuentra asignada se le conoce como *agujero*, a lo
+largo del tiempo los agujeros se llenarán por procesos listos para
+ejecutarse y se crearán cuando otros procesos terminen su ejecución.
+
+El sistema operativo debe verificar las necesidades de memoria de un
+proceso antes de cargrarlo ya que no necesariamente puede existir la
+suficiente cantidad de memoria para almacenar el proceso. Si las
+necesidades de memoria no pueden cumplirse se pueden tomar dos acciones:
+
++ Rechazar la creación del proceso enviando una señal.
++ Añadir el proceso a una lista de espera y esperar que en un futuro
+  se cumplan los requerimentos de memoria.
+
+[[./dynamic_storage.png]]
+
+El problema de administración de memoria se vuelve una instancia del
+problema conocido como *asignación dinámica de almacenamiento*:
+Satisfacer una petición de tamaño $n$ con una lista de espacios
+disponibles.
+
+Estudiaremos tres estrategias:
+
++ First-fit :: Asigna el primer agujero que es lo suficientemente
+  grande para almacenar la petición. La búsqueda puede iniciar al
+  inicio o al final de la lista de recursos. La búsqueda termina al
+  encontrar el primer agujero que satisface la petición.
++ Best-fit :: Asigna el agujero más pequeño que satisface la
+  petición. Debe buscarse la lista entera.
++ Worst-fit :: Asigna el agujero más grande que se encuentra. Busca la
+  lista entera.
 
 *** Asignación por segmentos
 
@@ -316,3 +352,8 @@ aprovechar esta característica.
 + ¿Qué ventaja trae la introducción de un =registro de
   reubicación/realojación= al modelo de administración de memoria?
 + ¿En qué consiste la carga dinámica de un programa?
++ ¿Cuál es el orden de ejecución de los algoritmos =best-fit=,
+  =first-fit= y =worst-fit= respectivamente?
++ ¿Qué desventaja tiene el algoritmo =first-fit=?
++ ¿Qué desventaja tiene el algoritmo =best-fit=?
++ ¿Qué desventaja tiene el algoritmo =worst-fit=?
