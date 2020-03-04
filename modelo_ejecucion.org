@@ -237,7 +237,7 @@ correspondiente se encuentra en un marco de página (memoria física) o no.
 
 [[./paginacion.png]]
 
-*** Recapitulando
+** Recapitulando
 
 El sistema operativo es responsable de administrar las siguientes
 operaciones respecto a la administración de memoria:
@@ -273,3 +273,46 @@ direcciones de memoria.
  realiza cálculos sobre direcciones de memoria* el cálculo de dichas
  direcciones es responsabilidad de la *unidad de administración de
  memoria (MMU)*.
+
+*¿Cómo protegemos las direcciones de memoria entre procesos?* La única
+ forma de proteger la integridad de la información en memoria es
+ mediante hardware: las operaciones de acceso y escritura de memoria
+ son realizadas entre el CPU y el hardware dejando fuera al sistema
+ operativo.
+
+*¿Qué técnicas se utilizan para atacar este problema?*
++ Separando los conceptos de direcciones cargadas efectivamente en el
+  chip de memoria (*memoria física*) y las direcciones generadas por
+  el CPU como resultado de una operación (*memoria lógica o virtual*)
++ La encargada de realizar la traducción entre memoria virtual y
+  física se conoce como *unidad de administración de memoria*.
+  que las comparaciones son realizadas por el hardware.
++ La asignación de direcciones de memoria para cada programa se
+  determinan (proceso conocido como /asociación de memoria/) en
+  distintas etapas: compilación, enlazamiento y tiempo de ejecución.
+
+*¿Cuál es la forma más simple de brindar protección a los espacios de memoria?*
++ Para separar los espacios de memoria de cada proceso utilizamos
+  registros =base= y =límite= que nos permiten distinguir dónde inicia
+  y termina cada espacio de memoria. La lectura y modificación de
+  estos registros sólo está permitida al sistema operativo, mientras
+  que la ejecución de las acciones es realizada por la MMU.
+  + Esto genera el siguiente espacio de direcciones:
+    + Lógicas $0-max$
+    + Físicas: $base + 0 - limite + max$
++ Sin embargo todo el espacio de memoria de un programa debe ser
+  cargado para que éste se ejecute lo cual no es práctico (piensa en
+  cargar en memoria un reproductor de vídeo con una película 4K de dos
+  horas).
+
+Para mejorar el modelo de administración de memoria se introdujo la
+carga dinámica: sólo se cargan las funciones de un programa que se van
+a utilizar en tiempo de ejecución, sin embargo es responsabilidad del
+programador realizar cambios a la estructura de sus programas para
+aprovechar esta característica.
+
+* Tarea
+
++ ¿Qué ventaja trae la introducción de un =registro de
+  reubicación/realojación= al modelo de administración de memoria?
++ ¿En qué consiste la carga dinámica de un programa?
