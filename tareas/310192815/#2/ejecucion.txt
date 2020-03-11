@@ -1,0 +1,36 @@
+José Jhovan Gallardo Valdez
+
+¿Qué ventaja trae la introducción de un registro de reubicación/realojación al modelo 
+de administración de memoria?
+Gracias a este los procesos no requieren tener acceso a la dirección física de la memoria
+si no que les basta tener una dirección lógica, y junto con el registro limite proporcionan 
+protección a areas de memoria que no corresponden a la asignada para el proceso.
+
+¿En qué consiste la carga dinámica de un programa?
+Su funcion principal es proteger  la carga en memoria de un modulo hasta que el programa 
+lo llame,como tambien tenemos el "Enlace dinamico"  que es otro caso de carga dinamica, 
+es aque en el cual la biblioteca de codigo se enlazada cuando un determinado programa se 
+ejecuta en posicion contraria a  un enlace estatico que se produce en un tiempo de proceso 
+de compilacion.Este tipo de enlace tiene grandes ventajas , por ejemplo: hace que el 
+programa sea mas liviano y puede evitar las duplicaciones de codigo.
+
+¿Cuál es el orden de ejecución de los algoritmos best-fit, first-fit y worst-fit 
+respectivamente?
+best-fit: asigna el agujero más pequeño que satisface la petición.
+first-fit: aisgna el primer agujero lo suficientemente grande para la petición.
+worst-fit: asigna el agujero más grande que satisface la petición.
+
+¿Qué desventaja tiene el algoritmo first-fit?
+Puede desperdiciar mucha memoria, pero la busqueda es más rapida.
+
+¿Qué desventaja tiene el algoritmo best-fit?
+Requiere hacer una busqueda lineal y deja huecos pequeños de memoria 
+que posiblemente se desperdiciarán en caso de que ninguna petición quepa en ellos.
+
+¿Qué desventaja tiene el algoritmo worst-fit?
+Requiere una busqueda lineal e inicialmente deja huecos más grandes, pero que 
+posiblemente podran ser ocupados después por otras peticiónes.
+
+
+Fuente:
+http://sistemasoperativosinacap.blogspot.com/2010/10/vinculaciones-de-memoria-carga-dinamica.html (consultado 11/03/2020)
