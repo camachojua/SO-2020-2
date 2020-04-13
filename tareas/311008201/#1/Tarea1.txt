@@ -1,0 +1,15 @@
+Aspiraciones del curso:
+
+Dado que ya llevo un buen tiempo en la carrera (más del que debería... tristemente) mi prioridad para este semestre es ya acreditar la materia.
+Es la segunda vez que llevo la materia, la primera cometí el error de cursarla con el profesor con el que los computólogos no deberíamos cursar.
+Dicho profesor nunca logró motivarme a aprender los temas del curso, le tome apatía a sus clases y terminé abandonando la materia a 3/4 del curso.
+Decidí escribir esto después de la primera semana porque ¿ya sabes, no? la primera impresión es la que cuenta. Me ha gustado la dinámica de las primeras
+clases, tengo mucha curiosidad de meterme en los temas del curso y quizá explorar el concepto de los sistemas operativos distribuidos y todo eso del computo de 
+alto rendimiento (por que definitavemente me declaro un ignorante del tema) y también cosas para aprender como diseñar un SO apto para seguridad informática 
+(algo del tipo Kali linux).
+
+¿Por qué el costo de empaquetado de un chip de procesamiento es más alto que el de la creación del chip?
+Tengo entendido que es debido a la Ley de Moore que dice que aproximadamente cada dos años se duplica el número de transistores en un microprocesador.
+Debido al incremento en el desempeño, la demanda por mas chips crece, provocando que el precio de los materiales disminuya. Por lo que los costos de fabricación 
+lo hacen
+
