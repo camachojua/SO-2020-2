@@ -1,0 +1,12 @@
+Juan Carlos Castrejón Estrada
+312002611
+
+Aspiraciones:
+Conocer los componentes y características de los sistemas operativos y las
+implementaciones de los algoritmos para administración de procesos.
+
+¿Por qué el costo de empaquetado de un chip de procesamiento es más alto que el
+de la creación del chip?
+Porque las pastillas del procesador, que están hechas del superconductor silicio,
+requieren un diseño muy fino y especifico, donde la mínima partícula de polvo puede
+arruinar el componente.
